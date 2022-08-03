@@ -1,0 +1,42 @@
+{
+  "name": "webpack-better-entries",
+  "version": "0.1.0",
+  "license": "MIT",
+  "homepage": "https://github.com/Tarik02/webpack-better-entries#readme",
+  "bugs": {
+    "url": "https://github.com/Tarik02/webpack-better-entries/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tarik02/webpack-better-entries.git"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "prepack": "yarn build"
+  },
+  "peerDependencies": {
+    "webpack": ">=5"
+  },
+  "devDependencies": {
+    "@types/glob-watcher": "^5.0.2",
+    "@types/node": "^18.6.1",
+    "typescript": "^4.7.4",
+    "webpack": "^5.74.0",
+    "webpack-dev-server": "^4.9.3"
+  },
+  "dependencies": {
+    "glob-watcher": "^5.0.5",
+    "globby": "^13.1.2"
+  }
+}
