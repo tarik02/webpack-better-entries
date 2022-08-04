@@ -51,23 +51,14 @@ export class EntriesResolver {
         const cwd = options.cwd ?? this.context;
 
         const stream = async function* (): AsyncGenerator<string> {
-          let continueWatcher: (() => void) | undefined;
-
           if (isWatch) {
-            await new Promise<void>(resolve => {
-              watchers.push(watch(patterns, {
-                cwd,
-                ignoreInitial: false,
-                events: ['add', 'unlink'],
-              }, callback => {
-                if (!continueWatcher) {
-                  continueWatcher = callback;
-                  resolve();
-                } else {
-                  invalidate?.();
-                }
-              }));
-            });
+            watchers.push(watch(patterns, {
+              cwd,
+              ignoreInitial: true,
+              events: ['add', 'unlink'],
+            }, () => {
+              invalidate?.();
+            }));
           }
 
           for await (const item of globbyStream(patterns, {
@@ -75,8 +66,6 @@ export class EntriesResolver {
           })) {
             yield item.toString('utf-8');
           }
-
-          continueWatcher?.();
         }();
 
         let promise: Promise<Array<string>> | undefined;
