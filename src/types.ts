@@ -22,6 +22,7 @@ export type Entries =
   | Record<string, string | EntryMeta>
   | Iterable<NamedEntryMeta>
   | AsyncIterable<NamedEntryMeta>
-  | Generator<NamedEntryMeta>;
+  | Generator<NamedEntryMeta>
+  | AsyncGenerator<NamedEntryMeta>;
 
 export type EntriesFactory = (context: EntriesFactoryContext) => Entries | Promise<Entries>;
