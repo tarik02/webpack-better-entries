@@ -4,6 +4,11 @@ export type EntryDescriptionNormalized = Webpack.DynamicEntryPlugin['entry'] ext
   ? EntryStaticNormalized[keyof EntryStaticNormalized]
   : never;
 
+export type EntryObject = Exclude<
+  Exclude<Webpack.Entry, string | string[] | Function>[string],
+  string | string[]
+>
+
 export type GlobFunction = (patterns: string | string[], options?: { cwd?: string; }) => PromiseLike<Array<string>> & AsyncIterable<string>;
 
 export type EntriesFactoryContext = {
@@ -15,7 +20,7 @@ export type ExtraEntryMeta = {
   context?: string;
 };
 
-export type EntryMeta = ExtraEntryMeta & EntryDescriptionNormalized;
+export type EntryMeta = ExtraEntryMeta & EntryObject;
 export type NamedEntryMeta = { name: string } & EntryMeta;
 
 export type Entries =
